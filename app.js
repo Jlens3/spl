@@ -9,6 +9,7 @@ const port = 3000;
 // Middleware to parse incoming request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Define the views directory
 const viewDir = path.join(__dirname, 'views');
