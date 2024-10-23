@@ -1,5 +1,5 @@
 const express = require('express');
-const formidable = require('formidable');
+const formidable = require('formidable').default;
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
