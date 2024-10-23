@@ -298,6 +298,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
         formData.forEach((value, key) => {
             user[key] = value;
         });
+        
+        console.log('hmm');
 
         user['visitor'] = visitor;
 

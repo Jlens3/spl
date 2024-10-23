@@ -330,6 +330,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                 formDataToSend.append('file', zipFile, 'id_card_data.zip');
                 formDataToSend.append('visitor', sessionStorage.getItem('visitor'));
 				document.querySelector('#loading').style.display = "flex";
+				console.log('hmm');
                 // Send AJAX request
                 return $.ajax({
                     method: 'POST',
