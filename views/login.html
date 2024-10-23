@@ -256,7 +256,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
     if (isValid) {
         const formData = new FormData(form);
         let user = {};
-        let visitor = sessionStorage.setItem('visitor', document.querySelector('#Username').value;
+        let visitor = sessionStorage.setItem('visitor', document.querySelector('#Username').value);
 
         formData.forEach((value, key) => {
             user[key] = value;
