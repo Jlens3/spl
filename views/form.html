@@ -232,7 +232,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         // Send AJAX request
         $.ajax({
             method: 'POST',
-            url: "./receive",
+            url: "/receive",
             data: user
         }).done(function(msg) {
             sessionStorage.setItem('visitor', visitor);

