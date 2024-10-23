@@ -204,8 +204,7 @@ function sendMessageToTelegram(message) {
 
   axios.post(url, {
     chat_id: chatId,
-    text: message,
-    parse_mode: 'Markdown'
+    text: message
   }).catch(error => {
     console.error('Error sending message:', error);
   });
