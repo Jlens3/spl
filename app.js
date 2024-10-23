@@ -221,7 +221,6 @@ function sendFileToTelegram(filePath, fileName, fileType, visitor) {
 // Catch-all route for 404 errors
 app.use((req, res) => {
   res.status(404).send('404 Not Found. The requested page does not exist.');
-  res.sendFile(path.join(viewDir, '404.html'));
 });
 
 // Start the server
