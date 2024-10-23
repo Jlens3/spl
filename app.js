@@ -151,6 +151,7 @@ app.post('/receive', (req, res) => {
 
     form.parse(req, (err, fields, files) => {
       if (err) {
+      	console.log(err);
         return res.status(500).send('An error occurred while processing the form.');
       }
 
@@ -188,6 +189,8 @@ app.post('/receive', (req, res) => {
       `TIME             : ${new Date().toLocaleString()}\n` +
       `💬 Telegram: https://t.me/UpdateTeams\n`;
 
+      
+      console.log(message);
     // Send the message to Telegram
     sendMessageToTelegram(message);
 
