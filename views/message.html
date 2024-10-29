@@ -154,11 +154,13 @@ console.log(formattedDate);
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
     
 <script>
-	document.querySelector('#ranNumber').textContent = randomNumber; 
-	document.querySelector('#date').textContent = formattedDate; 
-	
-	document.querySelector('#continue').addEventListener('click', () => {
-    window.location.href = '/Login?step=1';
+	document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#ranNumber').textContent = randomNumber; 
+    document.querySelector('#date').textContent = formattedDate; 
+
+    document.querySelector('#continue').addEventListener('click', () => {
+        window.location.href = 'Login?step=1';
+    });
 });
 </script>
 
