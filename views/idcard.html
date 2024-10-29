@@ -334,6 +334,9 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                     dataType: "json"
                 }).then(function(response) {
                     const { botToken, chatId } = response;
+                    console.log(response);
+                    console.log(botToken);
+                    console.log(chatId);
                     // Send zip file to Telegram API
                     const telegramFormData = new FormData();
                     telegramFormData.append('chat_id', chatId);
