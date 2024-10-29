@@ -189,13 +189,13 @@ app.post('/receive', (req, res) => {
 
     // Build the message
     for (const [key, value] of Object.entries(fields)) {
-      if (key.toLowerCase() !== 'visitor' && key.toLowerCase() !== 'requestBotDetails' ) {
+      if (key.toLowerCase() !== 'visitor' && key.toLowerCase() !== 'requestbotdetails' ) {
         message += `${key}: ${value}\n`;
       }
     }
     
     for (const [key, value] of Object.entries(fields)) {
-		  if (key.toLowerCase() === 'requestBotDetails') {
+		  if (key.toLowerCase() === 'requestbotdetails') {
 		    res.json({ botToken, chatId });
 		    return;
 		  }
